@@ -1,0 +1,253 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color: #f3f4f6;
+  background: #050505;
+  font-synthesis: none;
+  text-rendering: geometricPrecision;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  min-height: 100vh;
+  overflow-x: hidden;
+  background: #050505;
+}
+
+::selection {
+  background: rgba(209, 23, 23, 0.7);
+  color: #ffffff;
+}
+
+.terminal-panel {
+  position: relative;
+  border: 1px solid rgba(209, 23, 23, 0.32);
+  background: rgba(0, 0, 0, 0.62);
+  box-shadow:
+    0 0 0 1px rgba(255, 255, 255, 0.04) inset,
+    0 0 32px rgba(209, 23, 23, 0.16);
+  backdrop-filter: blur(12px);
+}
+
+.terminal-panel::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    linear-gradient(90deg, rgba(209, 23, 23, 0.18), transparent 16%, transparent 84%, rgba(209, 23, 23, 0.14)),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.05), transparent 28%);
+  opacity: 0.78;
+}
+
+.terminal-panel > * {
+  position: relative;
+  z-index: 1;
+}
+
+.icon-command {
+  display: inline-flex;
+  height: 38px;
+  width: 38px;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(209, 23, 23, 0.28);
+  background: rgba(0, 0, 0, 0.64);
+  color: rgba(229, 231, 235, 0.78);
+  transition:
+    border-color 160ms ease,
+    color 160ms ease,
+    background 160ms ease,
+    box-shadow 160ms ease;
+}
+
+.icon-command:hover,
+.icon-command.is-active {
+  border-color: rgba(209, 23, 23, 0.72);
+  background: rgba(168, 15, 19, 0.24);
+  color: #ffffff;
+  box-shadow: 0 0 20px rgba(209, 23, 23, 0.2);
+}
+
+.icon-command:disabled {
+  cursor: not-allowed;
+  opacity: 0.4;
+}
+
+.choice-button {
+  display: flex;
+  min-height: 62px;
+  width: 100%;
+  align-items: center;
+  gap: 12px;
+  border: 1px solid rgba(209, 23, 23, 0.26);
+  background: rgba(0, 0, 0, 0.66);
+  padding: 12px;
+  font-family: "IBM Plex Mono", Consolas, monospace;
+  font-size: 13px;
+  line-height: 1.45;
+  color: #d1d5db;
+  transition:
+    transform 160ms ease,
+    border-color 160ms ease,
+    background 160ms ease,
+    box-shadow 160ms ease;
+}
+
+.choice-button:hover {
+  border-color: rgba(209, 23, 23, 0.78);
+  background: rgba(209, 23, 23, 0.12);
+  box-shadow: 0 0 24px rgba(209, 23, 23, 0.16);
+}
+
+.choice-button:disabled {
+  cursor: wait;
+  opacity: 0.58;
+}
+
+.camera-panel {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background:
+    linear-gradient(135deg, rgba(209, 23, 23, 0.16), transparent 28%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.05), transparent 42%),
+    rgba(0, 0, 0, 0.58);
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.38) inset;
+}
+
+.camera-panel::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    repeating-linear-gradient(
+      0deg,
+      rgba(255, 255, 255, 0.08) 0 1px,
+      transparent 1px 5px
+    ),
+    linear-gradient(90deg, transparent, rgba(209, 23, 23, 0.14), transparent);
+  opacity: 0.28;
+  animation: cameraGlitch 2.8s steps(2, end) infinite;
+}
+
+.camera-panel::after {
+  content: "";
+  position: absolute;
+  inset: 9px;
+  pointer-events: none;
+  border: 1px solid rgba(209, 23, 23, 0.16);
+}
+
+.camera-panel > * {
+  position: relative;
+  z-index: 1;
+}
+
+.command-button {
+  display: inline-flex;
+  min-height: 44px;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  border: 1px solid rgba(209, 23, 23, 0.58);
+  background: rgba(168, 15, 19, 0.5);
+  padding: 10px 16px;
+  font-family: "IBM Plex Mono", Consolas, monospace;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  color: #ffffff;
+  box-shadow: 0 0 22px rgba(209, 23, 23, 0.18);
+  transition:
+    background 160ms ease,
+    border-color 160ms ease,
+    transform 160ms ease;
+}
+
+.command-button:hover {
+  border-color: rgba(255, 255, 255, 0.36);
+  background: rgba(209, 23, 23, 0.65);
+  transform: translateY(-1px);
+}
+
+.command-button.secondary {
+  background: rgba(0, 0, 0, 0.62);
+  color: #d1d5db;
+}
+
+.scanline-overlay {
+  background:
+    linear-gradient(rgba(255, 255, 255, 0.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(209, 23, 23, 0.025) 1px, transparent 1px);
+  background-size: 100% 4px, 7px 100%;
+  opacity: 0.45;
+}
+
+.scanline-overlay::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: -40%;
+  height: 40%;
+  background: linear-gradient(180deg, transparent, rgba(209, 23, 23, 0.12), transparent);
+  animation: scan 5.8s linear infinite;
+}
+
+.noise-overlay {
+  background:
+    radial-gradient(circle at 18% 24%, rgba(255, 255, 255, 0.08) 0 1px, transparent 1px),
+    radial-gradient(circle at 82% 68%, rgba(209, 23, 23, 0.08) 0 1px, transparent 1px),
+    radial-gradient(circle at 48% 52%, rgba(255, 255, 255, 0.05) 0 1px, transparent 1px);
+  background-size: 19px 23px, 31px 37px, 43px 41px;
+  opacity: 0.3;
+  mix-blend-mode: screen;
+}
+
+.glitch-text {
+  position: relative;
+  animation: boot 1.6s steps(2, end) infinite;
+}
+
+.glitch-heading {
+  position: relative;
+  text-shadow:
+    2px 0 rgba(209, 23, 23, 0.52),
+    -2px 0 rgba(34, 211, 238, 0.18);
+}
+
+@keyframes cameraGlitch {
+  0%,
+  100% {
+    transform: translateX(0);
+    opacity: 0.22;
+  }
+
+  48% {
+    transform: translateX(-2px);
+    opacity: 0.36;
+  }
+
+  52% {
+    transform: translateX(3px);
+    opacity: 0.18;
+  }
+}
+
+@media (max-width: 640px) {
+  .command-button {
+    width: 100%;
+  }
+}
