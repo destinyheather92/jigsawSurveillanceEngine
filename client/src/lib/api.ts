@@ -27,10 +27,18 @@ export type Attempt = {
   createdAt: string;
 };
 
-const API_BASE = import.meta.env.VITE_API_URL ?? "";
+const API_BASE_URL = import.meta.env.VITE_API_URL || "";
+
+function buildApiUrl(path: string) {
+  if (!API_BASE_URL) {
+    return path;
+  }
+
+  return `${API_BASE_URL.replace(/\/$/, "")}${path}`;
+}
 
 async function request<T>(path: string, options?: RequestInit): Promise<T> {
-  const response = await fetch(`${API_BASE}${path}`, {
+  const response = await fetch(buildApiUrl(path), {
     headers: {
       "Content-Type": "application/json",
       ...options?.headers
