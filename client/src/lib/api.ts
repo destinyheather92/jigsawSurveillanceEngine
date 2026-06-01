@@ -27,7 +27,9 @@ export type Attempt = {
   createdAt: string;
 };
 
-const API_BASE_URL = import.meta.env.VITE_API_URL || "";
+const API_BASE_URL = import.meta.env.VITE_API_URL;
+
+console.log("VITE_API_URL:", API_BASE_URL);
 
 function buildApiUrl(path: string) {
   if (!API_BASE_URL) {
@@ -38,7 +40,11 @@ function buildApiUrl(path: string) {
 }
 
 async function request<T>(path: string, options?: RequestInit): Promise<T> {
-  const response = await fetch(buildApiUrl(path), {
+  const requestUrl = buildApiUrl(path);
+
+  console.log("API request URL:", requestUrl);
+
+  const response = await fetch(requestUrl, {
     headers: {
       "Content-Type": "application/json",
       ...options?.headers
